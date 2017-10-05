@@ -1,0 +1,140 @@
+<style type="text/css">
+    .form-horizontal input.ng-invalid.ng-dirty {
+        border-color: #FA787E;
+    }
+
+    .form-horizontal input.ng-valid.ng-dirty {
+        border-color: #78FA89;
+    }
+</style>
+<div class="view">
+    <div class="container">
+        <div class="row">
+
+            <div class="page-header">
+                <h2><a href="#/listProdutos" style=" text-decoration: none">Produtos</a> <small><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></small> {{title}}</h2>
+            </div>                
+
+            <div ng-show="error" class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                {{error}}
+            </div>
+
+            <div class="col-md-12">        
+                <form role="form" name="myForm" class="form-horizontal">
+                    <div class="row">
+                        <div class= "form-group" ng-class="{error: myForm.nome.$invalid}">
+                            <label class= "col-md-2">Nome</label>
+                            <div class="col-md-10">
+                                <input name="nome" ng-model="post.product.nome" type= "text" class= "form-control" placeholder="Nome" required/>
+                                <span ng-show="myForm.nome.$dirty && myForm.nome.$invalid" class="help-inline">Nome</span>
+                            </div>
+                        </div>
+                        <div class= "form-group">
+                            <label class= "col-md-2">Descrição</label>
+                            <div class="col-md-10">
+                                <input name="descricao" ng-model="post.product.descricao" type= "text" class= "form-control" placeholder="Descrição" />
+                                <span ng-show="myForm.descricao.$dirty && myForm.descricao.$invalid" class="help-inline">Descrição</span>
+                            </div>
+
+                        </div>
+
+
+                        <div class= "form-group">
+                            <label class= "col-md-2">Quantidade</label>
+                            <div class="col-md-10">
+                                <input name="qtd" ng-model="post.product.qtd" type= "string" class= "form-control" placeholder="0"/>
+                            </div>
+
+                        </div>
+
+                        <div class= "form-group">
+                            <div class="row">                                       
+                                <div class="col-md-4">                               
+                                    <label class= "col-md-4">Preço Venda:</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">R$</div>
+                                            <input name="venda" id="venda"  ng-model="post.product.venda" type= "text" class="form-control" placeholder="0,00"  data-symbol="R$ " data-thousands="." data-decimal="," />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">                             
+                                    <label class= "col-md-4">Preço Custo:</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">R$</div>
+                                            <input name="custo" id="custo" ng-model="post.product.custo" type= "text"  class= "form-control" placeholder="0,00"  data-symbol="R$ " data-thousands="." data-decimal="," />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">                               
+                                    <label class= "col-md-4">Preço Mão de Obra:</label>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">R$</div>
+                                            <input name="maoobra" id="maoobra"  ng-model="post.product.maoobra" type= "text" class="form-control" placeholder="0,00"  data-symbol="R$ " data-thousands="." data-decimal="," />
+                                        </div>
+                                    </div>
+                                </div>                        
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="bootstrap-iso">
+
+                            <div class= "form-group">
+                                <div class="row">                                     
+                                    <div class="col-md-6">                               
+                                        <label class= "col-md-4">Data Fabricacao:</label>
+                                        <div class="col-md-8">
+                                            <input class="form-control" id="date" name="date" data-date-format='yy-mm-dd' ng-model="post.product.fabricacao"  placeholder="dd/MM/yyyy" type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">                             
+                                        <label class= "col-md-4">Data de Vencimento:</label>
+                                        <div class="col-md-8">
+                                            <input class="form-control" id="date" name="date"  data-date-format='yy-mm-dd' ng-model="post.product.vencimento" placeholder="dd/MM/yyyy" type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class= "form-group">
+                            <label class= "col-md-2"></label>
+                            <div class="col-md-4">
+                                <!-- <a href="#/listProdutos" class="btn">Cancel</a>-->
+                                <button ng-click="saveProduct(post);" ng-disabled="myForm.$invalid" class="btn btn-primary">{{buttonText}}</button>
+                                <!--<button ng-click="deleteProduct(post)" ng-show="post.product._id" class="btn btn-warning">Delete</button>!-->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: 'dd/mm/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+            language: "pt-BR"            
+        })
+        $('#venda').maskMoney();
+        $('#custo').maskMoney();
+        $('#maoobra').maskMoney();        
+    })
+
+</script>
+

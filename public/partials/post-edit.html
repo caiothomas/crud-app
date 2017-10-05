@@ -1,0 +1,76 @@
+<style type="text/css">
+    .form-horizontal input.ng-invalid.ng-dirty {
+        border-color: #FA787E;
+    }
+
+    .form-horizontal input.ng-valid.ng-dirty {
+        border-color: #78FA89;
+    }
+</style>
+<div class="view">
+    <div class="container">
+        <div class="row">
+            <nav class= "navbar navbar-default" role= "navigation" >
+                <div class= "navbar-header" >
+                    <a class= "navbar-brand" href= "#/posts">Customers List </a>        
+                    <a class= "navbar-brand" href= "#/post-insert/"> Create Customer </a>            
+                </div>
+            </nav>
+
+            <header>
+                <h3>{{title}}</h3>
+            </header>
+
+            <div class="col-md-12">        
+                <form role="form" name="myForm" class="form-horizontal">
+                    <div class="row">
+                        <div class= "form-group" ng-class="{error: myForm.name.$invalid}">
+                            <label class= "col-md-2">Titulo</label>
+                            <div class="col-md-4">
+                                <input name="name" ng-model="post.title" type= "text" class= "form-control" placeholder="Your name" required/>
+                                <span ng-show="myForm.name.$dirty && myForm.name.$invalid" class="help-inline">Titulo</span>
+                            </div>
+                        </div>
+
+                        <div class= "form-group">
+                            <label class= "col-md-2">Categoria </label>
+                            <div class="col-md-4">                                                      
+                                <select ng-model="post.categoria">
+                                    <option ng-repeat="operator in categorias" value="{{operator.id}}">{{operator.categoria}}</option>
+                                </select>                            
+                            </div>
+                        </div>
+
+
+
+                        <div class= "form-group">
+                            <label class= "col-md-2">Author</label>
+                            <div class="col-md-4">
+                                <select ng-model="post.author">
+                                    <option ng-repeat="operator in authors" value="{{operator.id}}">{{operator.nome}}</option>
+                                </select>  
+                            </div>
+                        </div>
+
+                        <div class= "form-group">
+                            <label class= "col-md-2">Conteudo </label>
+                            <div class="col-md-4">
+                                <textarea cols="4"  type= "text" class= "form-control" placeholder= "Conteudo" ng-model="post.body"></textarea> 
+                            </div>
+                        </div>
+
+                        <div class= "form-group">
+                            <label class= "col-md-2"></label>
+                            <div class="col-md-4">
+                                <a href="#/" class="btn">Cancel</a>
+                                <button ng-click="savePost(post);" ng-disabled="isClean() || myForm.$invalid" class="btn btn-primary">{{buttonText}}</button>
+                                <button ng-click="deletePost(post)" ng-show="post.id" class="btn btn-warning">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

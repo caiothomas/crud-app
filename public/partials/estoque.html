@@ -1,0 +1,75 @@
+
+<div class="container">
+    <div class="row">        
+
+
+        <div class="page-header">
+            <h2>Estoque <small><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></small> Todos</h2>
+        </div>                
+
+
+        <div class="panel panel-default">
+            <div class="panel-body">      
+                <div class=" col-md-8">
+                    <ul class="nav nav-pills">                 
+                        <li><a href="#/estoque-insert/">Novo Estoque</a></li>
+                        <li><a href ng-click="removeAll()">Remover todas marcadas</a> </li>
+                    </ul>
+                </div>
+
+                <div class=" col-md-4">
+                    <form  role="search" >
+
+                        <input type="text" class="form-control "  placeholder="Buscar" name="srch-term" id="srch-term" ng-model="searchquery">
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-md-12" ng-show="estoque.length > 0">
+            <table class="table table-hover">
+                <thead>
+                    <th><input type="checkbox" ng-model="selectedAll"  ng-click="ToggleSelectAll()" /></th>
+                    <th style="width:35%">Nome</th>
+                    <th>Fabricante</th>
+                    <th>Quantidade</th>    
+                    <th>Data Vencimento</th>                
+                    <th>Editar</th>    
+                    <th>Remover</th>                
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in estoque | pagination: curPage * pageSize | limitTo: pageSize | filter:searchquery">                
+                        <td><input type="checkbox" ng-model="data.ischecked"></td>
+                        <td>{{data.nome}}</td>                
+                        <td>{{data.fornecedor}}</td>
+                        <td>{{data.qtd}}</td>
+                        <td>{{ data.vencimento | date:"dd/MM/yyyy"}}</td>
+                        <td><a href="#/estoque-edit/{{data._id}}"><button class="btn btn-primary btn-xs" data-title="Editar" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-pencil"></span></button></a></td>
+                        <td><button class="btn btn-danger btn-xs" data-title="Remover" data-toggle="modal" data-target="#delete" ng-click="remove($index, data)" ><span class="glyphicon glyphicon-trash"></span></button></td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+            <ul class="pager" ng-show="estoque.length">
+                <li class="previous">
+                    <button type="button" class="btn" ng-disabled="curPage == 0" ng-click="curPage=curPage-1"> &lt; PREV</button>
+                </li>
+                <li>
+                    <span>Page {{curPage + 1}} of {{ numberOfPages() }}</span>
+                </li>
+                <li class="next">
+                    <button type="button" class="btn" ng-disabled="curPage >= estoque.length/pageSize - 1" ng-click="curPage = curPage+1">NEXT &gt;</button>  </li>
+            </ul>
+
+
+        </div>
+        <div class="col-md-12" ng-show="estoque.length == 0">
+            <div class="col-md-12">
+                <h4>Nenhum Estoque encontrado!</h4>
+            </div>
+        </div>
+    </div>
+</div>

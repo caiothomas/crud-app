@@ -1,0 +1,65 @@
+<style type="text/css">
+    .form-horizontal input.ng-invalid.ng-dirty {
+        border-color: #FA787E;
+    }
+
+    .form-horizontal input.ng-valid.ng-dirty {
+        border-color: #78FA89;
+    }
+</style>
+<div class="view">
+    <div class="container">
+        <div class="row">
+
+            <div class="page-header">
+                <h2><a href="#/" style=" text-decoration: none">Clientes</a> <small><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></small> {{title}}</h2>
+            </div>                
+
+            <div ng-show="error" class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                {{error}}
+            </div>
+
+            <div class="col-md-12">        
+                <form role="form" name="myForm" class="form-horizontal">
+                    <div class="row">
+                        <div class= "form-group" ng-class="{error: myForm.nome.$invalid}">
+                            <label class= "col-md-2">Nome</label>
+                            <div class="col-md-10">
+                                <input name="nome" ng-model="post.client.nome" type= "text" class= "form-control" placeholder="Nome" required/>
+                                <span ng-show="myForm.nome.$dirty && myForm.nome.$invalid" class="help-inline">Nome</span>
+                            </div>
+                        </div>
+                        <div class= "form-group">
+                            <label class= "col-md-2">Email</label>
+                            <div class="col-md-10">
+                                <input name="email" ng-model="post.client.email" type= "text" class= "form-control" placeholder="Email" required/>
+                                <!--  <span ng-show="myForm.email.$dirty && myForm.email.$invalid" class="help-inline">Email</span>-->
+                            </div>
+
+                        </div>
+
+                        <div class= "form-group">
+                            <label class= "col-md-2">Telefone </label>
+                            <div class="col-md-10">
+                                <input name="telefone" ng-model="post.client.telefone" type= "text" class= "form-control" placeholder="Telefone" required/>
+                                <!-- <span ng-show="myForm.telefone.$dirty && myForm.telefone.$invalid" class="help-inline">Telefone</span> -->
+                            </div>                 
+                        </div>
+
+                        <div class= "form-group">
+                            <label class= "col-md-2"></label>
+                            <div class="col-md-4">
+                                <!--<a href="#/" class="btn">Cancel</a>-->
+                                <button ng-click="saveCliente(post);" ng-disabled="isClean() || myForm.$invalid" class="btn btn-primary">{{buttonText}}</button>
+                                <!--<button ng-click="deleteCliente(post)" ng-show="post.client._id" class="btn btn-warning">Delete</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
